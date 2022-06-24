@@ -11,7 +11,7 @@
 - Created a Gmail clone.
 - Added breakpoints to it.
 - Scope : Applied search filter and opening any mail.
-- 
+
 
 
 ## Typing master
