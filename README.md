@@ -1,21 +1,10 @@
-# Rippling 
-## Exercise (Week-2 Set-3)
-
-
-- Expense tracker
-
-
-## Expense tracker
-
-- It is able to read, create and delete expenses.
-
-- Expense data is store in localStorage (retain data on refresh)
-
-- React (use context, function components only)
-
-- Added a budget facility i.e update budget and left money
-
-- Added support to filter the expenses based on type, category and name.
+# Rippling Academy
+- The topics covered are:
+ - HTML, CSS, Basic JavaScript : Typing master and gmail clone
+ - Advance JS and basic React : Expense tracker
+ - Advance React : YouTube clone
+ - Python : Hangsman game
+ - Django and MongoDB : URL shortener
 
 
 
