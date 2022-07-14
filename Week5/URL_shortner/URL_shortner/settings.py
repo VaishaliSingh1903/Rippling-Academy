@@ -1,6 +1,7 @@
 import mongoengine
 import os
 from pathlib import Path
+import urllib.parse
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,8 +28,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts',
-    'short_url',
+    'accounts.apps.AccountsConfig',
+    'short_url.apps.ShortUrlConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -72,8 +74,17 @@ WSGI_APPLICATION = 'URL_shortner.wsgi.application'
 #     }
 # }
 
-mongoengine.connect(db="demo", host="mongodb://localhost:27017")
+# DATABASES: dict[str, dict[str, str]] = {
+#     "default": {
+#         "ENGINE": "django.db.backends.dummy",
+#     },
+# }
 
+# username = urllib.parse.quote_plus('abc')
+# password = urllib.parse.quote_plus('1234')
+
+# mongoengine.connect(host="mongodb+srv://{}:{}@cluster0.eurnbsb.mongodb.net/?retryWrites=true&w=majority".format(username, password), db="demo")
+mongoengine.connect(db="demo")
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators

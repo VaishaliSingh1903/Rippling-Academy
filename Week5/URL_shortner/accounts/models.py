@@ -1,5 +1,14 @@
+from mongoengine import *
 from django.db import models
-from mongoengine import connect
+
+class User(Document):
+    username = StringField(max_length=20)
+    email = EmailField(required=True, unique=True)
+    password = StringField(max_length=10)
+    
+
+
+
 
 
 
