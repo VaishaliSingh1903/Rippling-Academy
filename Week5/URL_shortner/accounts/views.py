@@ -1,28 +1,30 @@
 from django.shortcuts import redirect, render
 from .models import User
-from mongoengine import Q
-from django.contrib import messages,auth
+from django.contrib.auth.hashers import make_password, check_password
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
 
 # Create your views here.
-def home(request):
-    return render(request, 'home.html')
 
+@csrf_exempt
 def login(request):
     if request.method == 'POST': 
         password = request.POST['password']
         email = request.POST['email']
         if email and password:
-            user1 = User.objects(email = email) 
-            if len(user1):
-                # auth.login(request,user1 )
-                return redirect(home)
+            user1 = User.objects(email = email)
+            if len(user1) and check_password(password,make_password(password)):
+                # return HttpResponse(user1['_id'])
+                return HttpResponse("verified")
             else:
-                return render(request, 'login.html',{'error' : 'User does not exists'})
+                return HttpResponse("User doen't exist / Invalid password")
         else:
-            return render(request, 'login .html',{'error' : 'Empty credientals'})
+            return HttpResponse("empty creditals")
     else:
-        return render(request, 'login.html')
+        return HttpResponse("Try again")
 
+
+@csrf_exempt
 def signup(request): 
     
     if request.method == 'POST':
@@ -37,24 +39,24 @@ def signup(request):
                 user1 = User.objects(email = email2) 
                 
                 if len(user1):
-                    return render(request, 'signup.html',{'error' : 'User already exists'})
+                    return HttpResponse("User already exist")
                 else:
                     user = User()
                     user.username = username
                     user.email = email2
-                    user.password = password
+                    user.password = (make_password(password))
                     
                     user.save()
-                    messages.success(request,"Registed! \n Login here")
-                    return  redirect(login)
+                    return HttpResponse("Registed succesfully")
+                    
             else:
-                return render(request, 'signup.html',{'error' : 'Empty credientals'}) 
+                return HttpResponse("empty creditals")
         else:
-           return render(request, 'signup.html',{'error' : 'Passwords are not same'}) 
+           return HttpResponse("Password not same")
     else:
-        return render(request, 'signup.html')
+        return HttpResponse("Try again")
 
 
-
+@csrf_exempt
 def logout(request):
-    return  redirect(login)
+    return  HttpResponse("<h1>Logout</h1>")
