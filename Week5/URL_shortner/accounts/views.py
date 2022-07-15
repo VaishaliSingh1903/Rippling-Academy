@@ -72,3 +72,7 @@ def delete_user(request):
            return HttpResponse("Empty credital") 
     else:
         return HttpResponse("Try again")
+
+@csrf_exempt
+def logout(request):
+    return HttpResponse("Logged out")
