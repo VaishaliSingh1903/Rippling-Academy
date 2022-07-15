@@ -30,3 +30,19 @@ class TestViews(TestSetUp):
         res = self.client.post(self.login_url,self.login_user_data[2])
         self.assertEqual(res.status_code,200)  
         self.assertEqual(res.content.decode(),"empty creditals")
+
+
+    def test_can_delete_user(self):
+        res = self.client.post(self.delete_user_url,self.user_data_deletion[0]) 
+        self.assertEqual(res.status_code,200) 
+        self.assertEqual(res.content.decode(),"User successfully deleted")
+
+        res = self.client.post(self.delete_user_url,self.user_data_deletion[1])  
+        self.assertEqual(res.status_code,200)
+        self.assertEqual(res.content.decode(),"User doesn't exist")
+
+        res = self.client.post(self.delete_user_url,self.user_data_deletion[2])
+        self.assertEqual(res.status_code,200)  
+        self.assertEqual(res.content.decode(),"Empty credital")
+
+    

@@ -66,8 +66,11 @@ def delete_user(request):
         id = request.POST['id']
         if id:
             user = User.objects(id = id) 
-            user.delete()
-            return HttpResponse("User successfully deleted")
+            if len(user):
+                user.delete()
+                return HttpResponse("User successfully deleted")
+            else:
+                return HttpResponse("User doesn't exist")
         else:
            return HttpResponse("Empty credital") 
     else:

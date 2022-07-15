@@ -12,6 +12,7 @@ class TestSetUp(APITestCase):
     def setUp(self) -> None:
         self.sigup_url = reverse('signup')
         self.login_url = reverse('login')
+        self.delete_user_url = reverse('delete_user')
 
         self.signup_user_data = [{ 'username':"teddy",
             'email':"teddy@gmail.com",
@@ -41,6 +42,15 @@ class TestSetUp(APITestCase):
         {
             'email':"",
             'password':"123",
+        }]
+
+        self.user_data_deletion = [{ 'id':'62d10caf1a07aaf37653c5be',
+        },
+        {
+            'id':'62d03de9992a84d3c60b47c1',
+        },
+        {
+            'id':'',
         }]
 
         return super().setUp()
