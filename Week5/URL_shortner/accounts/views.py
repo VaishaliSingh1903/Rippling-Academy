@@ -1,8 +1,12 @@
 from django.shortcuts import redirect, render
+from rest_framework.response import Response
+from .serializer import UserSerializer
 from .models import User
 from django.contrib.auth.hashers import make_password, check_password
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+
+
 
 # Create your views here.
 
@@ -14,8 +18,7 @@ def login(request):
         if email and password:
             user1 = User.objects(email = email)
             if len(user1) and check_password(password,make_password(password)):
-                # return HttpResponse(user1['_id'])
-                return HttpResponse("verified")
+                return HttpResponse(user1[0].id)
             else:
                 return HttpResponse("User doen't exist / Invalid password")
         else:
@@ -45,9 +48,9 @@ def signup(request):
                     user.username = username
                     user.email = email2
                     user.password = (make_password(password))
-                    
-                    user.save()
-                    return HttpResponse("Registed succesfully")
+                    # user.save()
+                    serializer = UserSerializer(user.save(), many=False)
+                    return JsonResponse(serializer.data)
                     
             else:
                 return HttpResponse("empty creditals")

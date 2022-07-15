@@ -8,7 +8,7 @@ urlpatterns = [
     path('', include('accounts.url')),
     path('dashboard/', dashboard, name ='dashboard'),
     path('generate/', generate, name = 'generate'),
-    path('<str:query>/', home, name = 'home'),
+    path('home/', home, name = 'home'),
 ]
 
 
