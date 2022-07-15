@@ -61,5 +61,14 @@ def signup(request):
 
 
 @csrf_exempt
-def logout(request):
-    return  HttpResponse("<h1>Logout</h1>")
+def delete_user(request):
+    if request.method == 'POST':
+        id = request.POST['id']
+        if id:
+            user = User.objects(id = id) 
+            user.delete()
+            return HttpResponse("User successfully deleted")
+        else:
+           return HttpResponse("Empty credital") 
+    else:
+        return HttpResponse("Try again")

@@ -8,4 +8,4 @@ class Query_Shortner(Document):
     short_url = StringField(blank = False, max_length = 28)
     visit = IntField(default = 0)
     time = DateTimeField()
-    user = ReferenceField(User, on_delete = CASCADE, required = True, dbref=True)
+    user = ReferenceField(User, reverse_delete_rule = CASCADE, required = True, dbref=True)

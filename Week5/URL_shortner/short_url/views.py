@@ -83,3 +83,16 @@ def generate(request):
             return HttpResponse("Empty fields")
     else:
         return HttpResponse("Try again")
+
+
+@csrf_exempt
+def delete_shorturl(request):
+    if request.method == 'POST': 
+        id = request.POST['id']
+        query = request.POST['short_url']
+        user = User.objects(id = id)
+        url = Query_Shortner.objects(user = user[0], short_url = query)
+        url.delete()
+        return HttpResponse("User successfully deleted")
+    else:
+        return HttpResponse("Try again")
